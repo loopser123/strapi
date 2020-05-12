@@ -16,6 +16,10 @@ module.exports = {
    */
   async add(values) {
     if (values.password) {
+    const reg = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+    if (!reg.test(values.password)){
+      throw { message: "Veuillez saisir un mot de passe de longueur minimale de 8 caractères, composé de majuscules, minuscules, caractères numériques et caractères spéciaux"};
+      }
       values.password = await strapi.plugins['users-permissions'].services.user.hashPassword(
         values
       );
@@ -30,6 +34,10 @@ module.exports = {
    */
   async edit(params, values) {
     if (values.password) {
+      const reg = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+      if (!reg.test(values.password)){
+        throw { message: "Veuillez saisir un mot de passe de longueur minimale de 8 caractères, composé de majuscules, minuscules, caractères numériques et caractères spéciaux"};
+      }
       values.password = await strapi.plugins['users-permissions'].services.user.hashPassword(
         values
       );
